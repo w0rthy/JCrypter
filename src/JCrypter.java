@@ -40,8 +40,6 @@ public class JCrypter {
         }
         s.close();
         pw.close();
-        s.close();
-        pw.close();
     }
     
     public static int[] encrypt(String d){

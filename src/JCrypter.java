@@ -2,6 +2,8 @@ package jcrypter;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -31,7 +33,7 @@ public class JCrypter {
             int[] a = encrypt(data);
             data = "";
             for(int i = 0; i <a.length; i++)
-                data+=(char)a[i];
+                data+=a[i]+" ";
             }
             else
                 data = decrypt(data);
@@ -46,7 +48,7 @@ public class JCrypter {
         int[] dat = toIntArray(d);
         for(int i = 0; i < dat.length; i++){
             //ENCRYPTION ALGORITHM
-            dat[i] = (int)Math.pow(dat[i]+1,2)*3+17;
+            dat[i] = (int)(Math.pow(dat[i]+1,2)*3+17);
         }
         return dat;
     }
@@ -60,7 +62,18 @@ public class JCrypter {
     }
     
     public static String decrypt(String a){
-        return decrypt(toIntArray(a));
+        Scanner s = new Scanner(a);
+        ArrayList<Integer> t = new ArrayList<Integer>();
+        while(s.hasNextInt())
+            t.add(s.nextInt());
+        return decrypt(transpose(t));
+    }
+    
+    public static int[] transpose(List<Integer> a){
+        int[] t = new int[a.size()];
+        for(int i = 0; i < a.size(); i++)
+            t[i] = a.get(i);
+        return t;
     }
     
     public static int[] toIntArray(String d){
